@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import web.dao.UserDao;
 import web.model.User;
 import web.service.UserService;
 import web.service.UserServiceImp;
@@ -13,18 +14,16 @@ import web.service.UserServiceImp;
 import java.util.List;
 
 @Controller
-@RequestMapping(name = "/users")
+//@RequestMapping(name = "/users")
 public class UsersController {
 
-    private UserService userService;
+    @Autowired
+    private UserDao userDao;
 
-    public UsersController(UserServiceImp userServiceImp) {
-        this.userService = userServiceImp;
-    }
 
     @RequestMapping("/")
     public String showAllUsers(Model model){
-        List<User> list = userService.getAllUsers();
+        List<User> list = userDao.getAllUsers();
         model.addAttribute("users",list);
         return "users";
     }
